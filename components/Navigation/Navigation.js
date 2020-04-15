@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import Link from 'next/link';
-import '../navStyles.scss';
+import './navStyles.scss';
 
 const Navigation = (props) => {
     const [isToggleNav, setToggleNav] = useState(false);
