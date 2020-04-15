@@ -1,0 +1,11 @@
+$fruid-page: 100%;
+* body,html{
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    box-sizing: border-box;
+}
+.container-web{
+    width: $fruid-page;
+    height: auto;
+}
