@@ -1,37 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import '../navStyles.scss';
 
-
-const Navigation = () => {
+const Navigation = (props) => {
+    const [isToggleNav, setToggleNav] = useState(false);
+    const { data } = props;
     return (
-        <div>
-            <style global jsx>{
-                `
-                a{
-                    color:#f00;
-                    text-decoration:none;
-                }
-                a:hover{
-                    padding:25px;
-                    background:#000;
-                    transition:1s;
-                }
-                
-                `
-            }</style>
-            <Link href={"/"}>
-                Home
-            </Link>
-            <Link href={{pathname:"index",query:{name: "zeit/next.js"} }}>
-                Next.js
-            </Link>
-            <Link href={{pathname:"index",query:{name:"facebook/react"}}}>
-                React.js
-            </Link>
+        <div className={isToggleNav ?'nav-box': 'nav-box-hidden'}>
+            <div className="hamburgur-container" onClick={() => { setToggleNav(!isToggleNav) }}>
+                <div className={isToggleNav ? 'change-hamburgur-top' : 'hamburgur-top'}></div>
+                <div className={isToggleNav ? 'change-hamburgur-middle' : 'hamburgur-middle'} ></div>
+                <div className={isToggleNav ? 'change-hamburgur-bottom' : 'hamburgur-bottom'} ></div>
+            </div>
+            <div className="nav-container">
+                <div className="nav-gird-item">
+                    <ul className="menu">
+                        {data.navigationreducer.navigationItems.map((route, index) => {
+                            return (
+                                <li className="link-item" key={index}>
+                                    <Link href={route.routePath}>
+                                        {route.keyTitle}
+                                    </Link>
+                                </li>
+                            )
+                        })}
+                    </ul>
 
+                </div>
+
+            </div>
         </div>
     )
 }
 
-
 export default Navigation;
+
