@@ -3,6 +3,7 @@ import App from 'next/app'
 import withRedux from 'next-redux-wrapper';
 import { initStore } from '../store/initStore';
 import { Provider } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class MyApp extends App {
     render() {
