@@ -1,12 +1,17 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import './navStyles.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
 const Navigation = (props) => {
+
     const [isToggleNav, setToggleNav] = useState(false);
+
     const { data } = props;
+
     return (
-        <div className={isToggleNav ?'nav-box': 'nav-box-hidden'}>
+        <div className={isToggleNav ? 'nav-box' : 'nav-box-hidden'}>
             <div className="hamburgur-container" onClick={() => { setToggleNav(!isToggleNav) }}>
                 <div className={isToggleNav ? 'change-hamburgur-top' : 'hamburgur-top'}></div>
                 <div className={isToggleNav ? 'change-hamburgur-middle' : 'hamburgur-middle'} ></div>
@@ -18,18 +23,44 @@ const Navigation = (props) => {
                         {data.navigationreducer.navigationItems.map((route, index) => {
                             return (
                                 <li className="link-item" key={index}>
-                                    <Link href={route.routePath}>
-                                        {route.keyTitle}
-                                    </Link>
+                                    {route.keyTitle === "category" ?
+                                        <React.Fragment>
+                                            <div className="dropdown">
+                                                <Link href="">
+                                                    {route.keyTitle}
+                                                </Link> <FontAwesomeIcon className="ml-2" icon={faArrowDown} />
+                                                <div className="dropdown-content">
+                                                    <Link href="#">Link 1</Link>
+                                                    <Link href="#">Link 2</Link>
+                                                    <Link href="#">Link 3</Link>
+                                                </div>
+                                            </div>
+                                        </React.Fragment>
+                                        : route.keyTitle === "cart" ?
+                                            <React.Fragment>
+                                                <Link className="text-danger" href="">
+                                                    {route.keyTitle}
+                                                </Link>{`(0)`}
+                                            </React.Fragment>
+                                            : route.keyTitle === "order" ?
+                                                <React.Fragment>
+                                                    <Link className="text-danger" href="">
+                                                        {route.keyTitle}
+                                                    </Link>{`(0)`}
+                                                </React.Fragment>
+
+                                                : <Link href={route.routePath}>
+                                                    {route.keyTitle}
+                                                </Link>
+                                    }
                                 </li>
                             )
-                        })}
+                        })
+                        }
                     </ul>
-
                 </div>
-
             </div>
-        </div>
+        </div >
     )
 }
 
