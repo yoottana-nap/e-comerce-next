@@ -38,13 +38,13 @@ const Navigation = (props) => {
                                         </React.Fragment>
                                         : route.keyTitle === "cart" ?
                                             <React.Fragment>
-                                                <Link className="text-danger" href="">
+                                                <Link  href="">
                                                     {route.keyTitle}
                                                 </Link>{`(0)`}
                                             </React.Fragment>
                                             : route.keyTitle === "order" ?
                                                 <React.Fragment>
-                                                    <Link className="text-danger" href="">
+                                                    <Link  href="">
                                                         {route.keyTitle}
                                                     </Link>{`(0)`}
                                                 </React.Fragment>
