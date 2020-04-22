@@ -7,7 +7,7 @@ const CustomButtonGroupAsArrows = ({ next, previous }) => {
       <style js>{`
       .prev{
         position:absolute;
-        top:-225px;
+        bottom: 280px;
         left:0;
         cursor:pointer;
         margin-bottom:15px
@@ -15,7 +15,7 @@ const CustomButtonGroupAsArrows = ({ next, previous }) => {
       .next{
         position:absolute;
         right:0;
-        top:-225px;
+        bottom: 280px;
         cursor:pointer;
         margin-bottom:15px
       }

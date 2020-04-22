@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Banner = (props) => {
-    const { imageSrc, routeName } = props;
+    const { imageSrc, routeName,paddingBanner } = props;
     return (
         <React.Fragment>
             <style jsx>{`       
@@ -10,6 +10,7 @@ const Banner = (props) => {
                 background-size:cover;
                 background-repeat:no-repeat;
                 width:100%;
+                padding:${paddingBanner};
                 height:auto;
             }
             .text{
@@ -25,7 +26,7 @@ const Banner = (props) => {
                 letter-spacing: normal;
             }
             `}</style>
-            <div className="bg-banner">
+            <div className="bg-banner mb-5">
                 <div className="text">
                     {routeName}
                 </div>

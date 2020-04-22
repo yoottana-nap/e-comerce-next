@@ -26,25 +26,24 @@ const Navigation = (props) => {
                                     {route.keyTitle === "category" ?
                                         <React.Fragment>
                                             <div className="dropdown">
-                                                <Link href="">
+                                                <Link href={{pathname:"Category", query:{name:route.routePath.Bags}}}>
                                                     {route.keyTitle}
                                                 </Link> <FontAwesomeIcon className="ml-2" icon={faArrowDown} />
-                                                <div className="dropdown-content">
-                                                    <Link href="#">Link 1</Link>
-                                                    <Link href="#">Link 2</Link>
-                                                    <Link href="#">Link 3</Link>
+                                                <div className="dropdown-content" id="dropdown">
+                                                    <Link href={{ pathname:"Category", query:{name:route.routePath.Bags}}}>{route.routePath.Bags}</Link>
+                                                    <Link href={{ pathname:"Category", query:{name:route.routePath.Pants}}}>{route.routePath.Pants}</Link>
                                                 </div>
                                             </div>
                                         </React.Fragment>
                                         : route.keyTitle === "cart" ?
                                             <React.Fragment>
-                                                <Link  href="">
+                                                <Link href="">
                                                     {route.keyTitle}
                                                 </Link>{`(0)`}
                                             </React.Fragment>
                                             : route.keyTitle === "order" ?
                                                 <React.Fragment>
-                                                    <Link  href="">
+                                                    <Link href="">
                                                         {route.keyTitle}
                                                     </Link>{`(0)`}
                                                 </React.Fragment>

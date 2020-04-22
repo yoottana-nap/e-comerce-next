@@ -50,7 +50,8 @@ const Index = (props) => {
                 <Carousel
                     infinite={true}
                     responsive={responsive}
-                    autoPlaySpeed={1000}
+                    autoPlaySpeed={2000}
+                    autoPlay={true}
                     arrows={false}
                     showDots={true}
                     renderButtonGroupOutside={true}

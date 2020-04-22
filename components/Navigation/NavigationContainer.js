@@ -3,7 +3,7 @@ import Navigation from './Navigation';
 
 const navigationItems = [
     { keyTitle: "home", routePath: "/index" },
-    { keyTitle: "category", routePath: "" },
+    { keyTitle: "category", routePath: { Pants: "Pants", Bags: "Bags" } },
     { keyTitle: "signup", routePath: "/signin" },
     { keyTitle: "signin", routePath: "/signin" },
     { keyTitle: "cart", routePath: "/signin" },
