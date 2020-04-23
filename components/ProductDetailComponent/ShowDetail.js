@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './ShowDetail.scss';
 import AddToCart from './AddToCart/AddToCart';
 
 const ShowDetail = (props) => {
@@ -14,7 +13,7 @@ const ShowDetail = (props) => {
         });
         return ref.current;
     }
-    
+
     const prevState = usePrevious(idx);
 
     useEffect(() => {
@@ -31,9 +30,127 @@ const ShowDetail = (props) => {
         <div className="container my-5">
             <style jsx>
                 {`
-            .wrapper-btn-item img{
-                cursor:pointer;
-            }
+                    .img-responsive {
+                        width: 100%;
+                    }
+                    
+                    .wrapper-img {
+                        width: 100%;
+                        border: 1px solid #ececec;
+                        height: 538px;
+                        overflow: hidden;
+                        display: block;
+                        text-align: center;
+                        margin: 0 auto;
+                    }
+                    
+                    .text-header {
+                        font-family: Kanit;
+                        font-size: 30px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: 1.5;
+                        letter-spacing: normal;
+                        text-align: left;
+                        color: #707070;
+                    }
+                    
+                    .fade {
+                        animation: fadein 2s;
+                    }
+                    
+                    @keyframes fadein {
+                        from {
+                            opacity: 0;
+                        }
+                    
+                        to {
+                            opacity: 1;
+                        }
+                    }
+                    
+                    .wrapper-btn-item {
+                        width: 100%;
+                        height: auto;
+                        border: 1px solid #ececec;
+                        margin: 10px;
+                        cursor: pointer;
+                        overflow: hidden;
+                    }
+                    
+                    .active {
+                        border: solid 1.5px #000000;
+                    }
+                    
+                    .underline-product-detail {
+                        width: 100%;
+                        height: 1px;
+                        content: "";
+                        background: rgb(201, 201, 201);
+                    }
+                    
+                    .description {
+                        font-family: Kanit;
+                        font-size: 30px;
+                        font-weight: bold;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: 1.5;
+                        letter-spacing: normal;
+                        text-align: left;
+                        color: #707070;
+                    }
+                    
+                    .description-subtitle {
+                        font-family: Kanit;
+                        font-size: 25px;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: 1.5;
+                        letter-spacing: normal;
+                        text-align: left;
+                        color: #707070;
+                    }
+                    
+                    @media only screen and (max-width: 991.98px) {
+                        .text-header {
+                            font-family: Kanit;
+                            font-size: 18px;
+                            font-weight: normal;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: 1.5;
+                            letter-spacing: normal;
+                            text-align: left;
+                            color: #707070;
+                        }
+                    
+                        .wrapper-btn-item {
+                            width: 100%;
+                            height: auto;
+                            border: 1px solid #ececec;
+                            margin: 10px;
+                        }
+                    
+                        .wrapper-img {
+                            width: 100%;
+                            border: 1px solid #ececec;
+                            height: auto;
+                            overflow: hidden;
+                            display: block;
+                            text-align: center;
+                            margin: 0 auto;
+                        }
+                    
+                        .description {
+                            font-size: 18px;
+                        }
+                    
+                        .description-subtitle {
+                            font-size: 15px;
+                        }
+                    }
             `}
             </style>
             <div className="row">
