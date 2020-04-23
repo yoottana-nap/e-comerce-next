@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import './navStyles.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 const Navigation = (props) => {
 
@@ -28,7 +28,7 @@ const Navigation = (props) => {
                                             <div className="dropdown">
                                                 <Link href={{pathname:"Category", query:{name:route.routePath.Bags}}}>
                                                     {route.keyTitle}
-                                                </Link> <FontAwesomeIcon className="ml-2" icon={faArrowDown} />
+                                                </Link> <FontAwesomeIcon className="ml-2" icon={faChevronDown} />
                                                 <div className="dropdown-content" id="dropdown">
                                                     <Link href={{ pathname:"Category", query:{name:route.routePath.Bags}}}>{route.routePath.Bags}</Link>
                                                     <Link href={{ pathname:"Category", query:{name:route.routePath.Pants}}}>{route.routePath.Pants}</Link>

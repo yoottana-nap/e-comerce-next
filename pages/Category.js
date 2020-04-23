@@ -22,7 +22,7 @@ const Category = (props) => {
                             return data.type === routeName && data.items.map((item, index) => {
                                 return (
                                     <div key={index} className="col-md-4 col-12">
-                                        <Card id_product={item.id} images_product={item.images} price_product={item.price} product_name={item.name} />
+                                        <Card id_product={item.id} product_type={data.type} images_product={item.images} price_product={item.price} product_name={item.name} />
                                     </div>
                                 )
                             })

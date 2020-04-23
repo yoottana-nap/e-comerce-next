@@ -26,8 +26,9 @@ const GalleryImage = () => {
                     margin-top: 8px;
                     vertical-align: middle;
                     width: 100%;
+                    height:auto;
                 }
-                .wrapper-img{
+                .wrapper-img-gallery{
                     position: relative;
                     overflow: hidden;
                 }
@@ -42,15 +43,15 @@ const GalleryImage = () => {
 
             <div className="container-image-group">
                 <div className="container-image-group-column">
-                    <div className="wrapper-img">
+                    <div className="wrapper-img-gallery">
                         <img  src="/prontonudie.jpg" alt="img-header" />
                     </div>
                 </div>
                 <div className="container-image-group-column">
-                    <div className="wrapper-img">
+                    <div className="wrapper-img-gallery">
                         <img  src="/cinder.jpg" alt="img-header" />
                     </div>
-                    <div className="wrapper-img">
+                    <div className="wrapper-img-gallery">
                         <img  src="/prontomisterfreedom.jpg" alt="img-header" />
                     </div>
                 </div>
