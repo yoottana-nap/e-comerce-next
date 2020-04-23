@@ -5,7 +5,7 @@ import AddToCart from './AddToCart/AddToCart';
 const ShowDetail = (props) => {
     let { item, resType } = props;
     const [idx, setIndex] = useState(0);
-    const [isFade, setIsFade] = useState(false);
+    const [isFade, setIsFade] = useState(true);
 
     const usePrevious = (value) => {
         const ref = useRef();

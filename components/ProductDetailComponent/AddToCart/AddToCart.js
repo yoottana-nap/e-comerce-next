@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './addToCart.scss'
 const AddToCart = (props) => {
     let { item, resType } = props;
     let SizeProduct = [32, 34, 36, 38, 40]

@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import Router from 'next/router';
 import '../CardProduct/Card.scss';
 
 const Card = (props) => {
@@ -41,10 +41,11 @@ const Card = (props) => {
             </style>
             <div className="card-container">
                 <div className="wrapper-image-card">
-                    <Link href={{ pathname: "ProductDetail", query: { id: id_product, type: product_type } }}>
-                        <div className="image-card">
-                        </div>
-                    </Link>
+                    <div className="image-card" onClick={() => Router.push({
+                        pathname: "/ProductDetail",
+                        query: { id: id_product, type: product_type },
+                    })}>
+                    </div>
                 </div>
                 <div className="card-detail ml-auto mt-3">
                     {product_name === undefined ? name : product_name}
