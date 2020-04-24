@@ -4,18 +4,17 @@ import Navigation from './Navigation';
 const navigationItems = [
     { keyTitle: "home", routePath: "/index" },
     { keyTitle: "category", routePath: { Pants: "Pants", Bags: "Bags" } },
-    { keyTitle: "signup", routePath: "/signin" },
+    { keyTitle: "signup", routePath: "/signup" },
     { keyTitle: "signin", routePath: "/signin" },
-    { keyTitle: "cart", routePath: "/signin" },
-    { keyTitle: "order", routePath: "/signin" }
+    { keyTitle: "cart", routePath: "/cart" },
+    { keyTitle: "order", routePath: "/order" }
 ];
 
 export const initialState = {
     navigationItems: navigationItems,
 };
 
-export const Navigationreducer = (state = initialState, action) => {
-    switch (action.type) { }
+export const Navigationreducer = (state = initialState) => {
     return state;
 };
 
