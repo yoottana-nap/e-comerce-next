@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import AddToCart from './AddToCart/AddToCart';
+import AddToCart from './AddToCart';
 
 const ShowDetail = (props) => {
     let { item, resType } = props;
