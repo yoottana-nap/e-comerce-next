@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import Link from 'next/link';
 import './navStyles.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,7 +9,7 @@ const Navigation = (props) => {
 
     const [isToggleNav, setToggleNav] = useState(false);
 
-    const { data } = props;
+    const { data, addedItems } = props;
 
     return (
         <div className={isToggleNav ? 'nav-box' : 'nav-box-hidden'}>
@@ -26,20 +27,20 @@ const Navigation = (props) => {
                                     {route.keyTitle === "category" ?
                                         <React.Fragment>
                                             <div className="dropdown">
-                                                <Link href={{pathname:"Category", query:{name:route.routePath.Bags}}}>
+                                                <Link href={{ pathname: "Category", query: { name: route.routePath.Bags } }}>
                                                     {route.keyTitle}
                                                 </Link> <FontAwesomeIcon className="ml-2" icon={faChevronDown} />
                                                 <div className="dropdown-content" id="dropdown">
-                                                    <Link href={{ pathname:"Category", query:{name:route.routePath.Bags}}}>{route.routePath.Bags}</Link>
-                                                    <Link href={{ pathname:"Category", query:{name:route.routePath.Pants}}}>{route.routePath.Pants}</Link>
+                                                    <Link href={{ pathname: "Category", query: { name: route.routePath.Bags } }}>{route.routePath.Bags}</Link>
+                                                    <Link href={{ pathname: "Category", query: { name: route.routePath.Pants } }}>{route.routePath.Pants}</Link>
                                                 </div>
                                             </div>
                                         </React.Fragment>
                                         : route.keyTitle === "cart" ?
                                             <React.Fragment>
-                                                <Link href={""}>
+                                                <Link href={route.routePath}>
                                                     {route.keyTitle}
-                                                </Link>{`(0)`}
+                                                </Link>{`(${addedItems.length ? addedItems.length : '0'})`}
                                             </React.Fragment>
                                             : route.keyTitle === "order" ?
                                                 <React.Fragment>
@@ -54,14 +55,12 @@ const Navigation = (props) => {
                                     }
                                 </li>
                             )
-                        })
-                        }
+                        })}
                     </ul>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 
-export default Navigation;
-
+export default connect(state => state.cartreducer)(Navigation);
