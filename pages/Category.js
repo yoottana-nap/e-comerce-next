@@ -15,8 +15,8 @@ const Category = (props) => {
             })
             }
 
-            <div className="container mb-3">
-                <div className="row">
+            <div className="container-fluid mb-3">
+                <div className="row m-5">
                     {
                         dataJson.map((data) => {
                             return data.type === routeName && data.items.map((item, index) => {
