@@ -57,17 +57,27 @@ const Index = (props) => {
                     renderButtonGroupOutside={true}
                     customButtonGroup={<CustomeButtonGroup />}
                 >
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
+                    {
+                        props.dataJson.map((data) => {
+                            return data.items.map((item, index) => {
+                                return (
+                                    <Card key={index} id_product={item.id} product_type={data.type} images_product={item.images} price_product={item.price} product_name={item.name} />
+                                )
+                            })
+                        })
+                    }
                 </Carousel>
             </div>
             <div className="container-fluid my-5">
-                <GalleryImage/>
+                <GalleryImage />
             </div>
         </MainLayout>
     )
+}
+
+Index.getInitialProps = async () => {
+    const api = await import('../mockup/mockup.json')
+    return { dataJson: api.data }
 }
 
 export default Index;
