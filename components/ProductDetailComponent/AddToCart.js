@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Router from 'next/router'
+import { connect } from 'react-redux';
+import { mapDispatchToProps } from './AddToCartContainer';
 const AddToCart = (props) => {
-    let { item, resType } = props;
-    let SizeProduct = [32, 34, 36, 38, 40]
+    let { item, resType, addItemsInCart, addTotalPrice} = props;
+    let SizeProduct = [32, 34, 36, 38, 40];
+    const [quantity, setQuantity] = useState(1);
+
+    const addItemToCart = (items) => {
+        addItemsInCart({items,qty:quantity});
+        addTotalPrice(parseInt(quantity * items.price));
+        Router.push('/cart')
+    }
+
     return (
         <div className="container">
             <style jsx>
-            {`
+                {`
             // Add To Cart
             .BAHT {
                 font-family: Kanit;
@@ -136,14 +147,14 @@ const AddToCart = (props) => {
                 }
                 <div className="my-3 col-12 text-left">
                     <div className="d-flex flex-row">
-                        <button className="btn-subtack">-</button>
-                        <input className="input-amount" value={1} placeholder={1} type="number" value=""></input>
-                        <button className="btn-addtack">+</button>
+                        <button className="btn-subtack" disabled={quantity == 1} onClick={() => setQuantity(quantity - 1)}>-</button>
+                        <input className="input-amount" disabled value={quantity} placeholder={quantity} type="number"></input>
+                        <button className="btn-addtack" onClick={() => { setQuantity(quantity + 1) }}>+</button>
                     </div>
                 </div>
                 <div className="my-3 col-12 text-left">
                     <div className="d-flex flex-row">
-                        <button className="add-cart">
+                        <button className="add-cart" onClick={() => {addItemToCart(item)}}>
                             ADD TO CART
                         </button>
                     </div>
@@ -153,4 +164,4 @@ const AddToCart = (props) => {
     )
 }
 
-export default AddToCart;
+export default connect(state => state.cartreducer, mapDispatchToProps)(AddToCart);
