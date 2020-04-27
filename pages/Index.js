@@ -53,7 +53,6 @@ const Index = (props) => {
                     autoPlaySpeed={2000}
                     autoPlay={true}
                     arrows={false}
-                    showDots={true}
                     renderButtonGroupOutside={true}
                     customButtonGroup={<CustomeButtonGroup />}
                 >

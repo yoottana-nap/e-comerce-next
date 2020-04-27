@@ -1,7 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
 import NavigationContainer from '../Navigation/NavigationContainer';
-import '../../assets/styles.scss';
 
 const MainLayout = (props) => {
     return (

@@ -3,12 +3,13 @@ import Router from 'next/router'
 import { connect } from 'react-redux';
 import { mapDispatchToProps } from './AddToCartContainer';
 const AddToCart = (props) => {
-    let { item, resType, addItemsInCart, addTotalPrice} = props;
+    let { item, resType, addItemsInCart, addTotalPrice } = props;
     let SizeProduct = [32, 34, 36, 38, 40];
     const [quantity, setQuantity] = useState(1);
+    const [size, setSize] = useState(32);
 
     const addItemToCart = (items) => {
-        addItemsInCart({items,qty:quantity});
+        addItemsInCart({ items, qty: quantity, size: size });
         addTotalPrice(parseInt(quantity * items.price));
         Router.push('/cart')
     }
@@ -17,7 +18,14 @@ const AddToCart = (props) => {
         <div className="container">
             <style jsx>
                 {`
-            // Add To Cart
+            .btn-size:hover{
+                transition:.5s;
+                border:3px solid #000;
+            }
+            .btn-size-active{
+                background:#000 !important;
+                color:#fff;
+            }
             .BAHT {
                 font-family: Kanit;
                 font-size: 30px;
@@ -65,7 +73,7 @@ const AddToCart = (props) => {
                 height: 55px;
                 border: solid 1px #bcbcbc;
                 background-color: #ffffff;
-                padding-left: 5px;
+                padding-left:42px;
                 outline: none;
             }
             
@@ -137,10 +145,11 @@ const AddToCart = (props) => {
                             <h5 className="text-secondary h-100 pt-3">
                                 SIZE
                         </h5>
-                            {SizeProduct.map((size, index) => {
-                                return <button key={index} className="btn-size">
-                                    {size}
-                                </button>
+                            {SizeProduct.map((sizes, index) => {
+                                return (
+                                    <button key={index} className={`${sizes === size ? "btn-size-active" : ''}  btn-size`} onClick={() => { setSize(sizes) }}>
+                                        {sizes}
+                                    </button>)
                             })}
                         </div>
                     </div>
@@ -154,7 +163,7 @@ const AddToCart = (props) => {
                 </div>
                 <div className="my-3 col-12 text-left">
                     <div className="d-flex flex-row">
-                        <button className="add-cart" onClick={() => {addItemToCart(item)}}>
+                        <button className="add-cart" onClick={() => { addItemToCart(item) }}>
                             ADD TO CART
                         </button>
                     </div>

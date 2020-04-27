@@ -1,16 +1,16 @@
 import React from 'react';
+import Router from 'next/router';
 import MainLayout from '../components/MainLayout/MainLayout';
 import { mapDispatchToProps } from '../components/ProductDetailComponent/AddToCartContainer';
 import { connect } from 'react-redux';
 
 const Cart = (props) => {
-    let { addedItems, handleRemove, total, } = props;
+    let { addedItems, handleRemove, total } = props;
 
     const handleDeleteItem = (items) => {
         let updatePrice = parseInt(items.price * items.quantity);
         handleRemove({ items: items, updatePrice: updatePrice });
     }
-
     return (
         <MainLayout>
             <style jsx>
@@ -90,6 +90,9 @@ const Cart = (props) => {
                                                             <div className="col-md-5 col-12 text-left text-muted">
                                                                 <h3 className="type-product">{item.type}</h3>
                                                                 <p>{item.name}</p>
+                                                                {item.Size && item.type !== "Bags" &&
+                                                                    <p><b>SIZE: {item.Size}</b></p>
+                                                                }
                                                                 <p><b>Quantity: {item.quantity}</b></p>
                                                                 <button className="text-left remove-product" onClick={() => handleDeleteItem(item)}>
                                                                     <u>
@@ -127,7 +130,7 @@ const Cart = (props) => {
                         <div className="text-muted text-center">
                             TOTAL :<span className="pl-5">{parseInt(total).toLocaleString()} BATH </span>
                         </div>
-                        <button className="button-to-checkout">
+                        <button className="button-to-checkout" disabled={total === 0 ? true : false} onClick={() => Router.push('/checkout')}>
                             PROCESS TO CHECKOUT
                         </button>
                     </div>

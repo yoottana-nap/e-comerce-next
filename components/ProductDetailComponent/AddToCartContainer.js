@@ -25,9 +25,15 @@ export const Cartreducer = (state = initialState, action) => {
         let existed_item = state.addedItems.find(item => action.payload.items.id === item.id)
         if (existed_item) {
             addedItem.quantity += action.payload.qty;
+            if (addedItem.type !== "Bags") {
+                addedItem.Size = action.payload.size;
+            }
         }
         else {
             addedItem.quantity = action.payload.qty;
+            if (addedItem.type !== "Bags") {
+                addedItem.Size = action.payload.size;
+            }
             //calculating the total
             return {
                 ...state,
@@ -36,8 +42,6 @@ export const Cartreducer = (state = initialState, action) => {
         }
 
     } else if (action.type === CartAction.CART_REMOVE) {
-        console.log(action.payload.items.id);
-        console.log(action.payload.updateItem);
         // filter new items obj delete item = action.id 
         let new_items = state.addedItems.filter(item => action.payload.items.id !== item.id)
         return {
