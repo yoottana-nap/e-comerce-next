@@ -1,7 +1,46 @@
 import React from 'react';
+import Router from 'next/router';
+import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { Field, reduxForm, reset } from 'redux-form';
+import FieldEmail from '../components/FieldComponents/FieldEmail'
+import FieldPassword from '../components/FieldComponents/FieldPassword'
+import ButtonSubmit from '../components/FieldComponents/ButtonSubmit'
 import MainLayout from '../components/MainLayout/MainLayout';
+import validate from '../Validate/SigninValidator';
+import { service } from '../api/BaseApi';
+import Cookies from 'js-cookie'
+import { mapDispatchToProps } from '../store/usersReducer/UserReducer';
+const Signin = (props) => {
+    let { handleSubmit, loadedDataUser } = props;
+    const dispatch = useDispatch();
+    const singinSubmit = (data) => {
+        if (data) {
+            service({
+                method: 'post',
+                url: 'users/Login/',
+                data: {
+                    email: data.email,
+                    password: data.password,
+                }
+            })
+                .then((response) => {
+                    if (response) {
+                        let cookieGenerate = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                        Cookies.set('verify_secure', cookieGenerate, { expires: 1 }, { secure: true });
+                        loadedDataUser(response.data)
+                        alert("เข้าสู่ระบบสำเร็จ");
+                        Router.push('/');
+                    }
+                }).catch(err => {
+                    setTimeout(() => {
+                        alert("กรุณาตรวจสอบอีเมลล์และรหัสผ่านของคุณ");
+                    }, 5000)
 
-const Signin = () => {
+                })
+        }
+        dispatch(reset('Signin'));
+    }
     return (
         <MainLayout>
             <div className="container">
@@ -13,23 +52,41 @@ const Signin = () => {
                         <h5 className="mt-5">
                             เข้าสู่ระบบ
                         </h5>
-                        <form className="text-left row ">
+                        <form onSubmit={handleSubmit(singinSubmit)} className="text-left row ">
                             <div className="col-12">
                                 <div className="form-group">
-                                    <label for="email">อีเมลล์</label>
-                                    <input type="email" className="form-control" id="email" placeholder="โปรดกรอกอีเมลล์" />
+                                    <label htmlFor="email">อีเมลล์</label>
+                                    <Field
+                                        name="email"
+                                        type="email"
+                                        component={FieldEmail}
+                                        styleTextError="text-danger"
+                                        placeholder="โปรดกรอกอีเมลล์"
+                                    />
                                 </div>
                             </div>
-                           
+
                             <div className="col-12">
                                 <div className="form-group">
-                                    <label for="Password">รหัสผ่าน</label>
-                                    <input type="password" className="form-control" id="Password" placeholder="โปรดกรอกรหัสผ่าน" />
+                                    <label htmlFor="password">รหัสผ่าน</label>
+                                    <Field
+                                        name="password"
+                                        type="password"
+                                        component={FieldPassword}
+                                        styleTextError="text-danger"
+                                        placeholder="โปรดกรอกรหัสผ่าน"
+                                    />
                                 </div>
                             </div>
-                           
+
                             <div className="col-12 text-right">
-                                <button type="submit" className="btn btn-primary w-25">เข้าสู่ระบบ</button>
+                                <Field
+                                    label="เข้าสู่ระบบ"
+                                    name="submit"
+                                    type="submit"
+                                    style="btn btn-primary btn-block"
+                                    component={ButtonSubmit}
+                                />
                             </div>
                         </form>
                     </div>
@@ -39,4 +96,5 @@ const Signin = () => {
     )
 }
 
-export default Signin;
+const SigninConnectStore = connect(state => state.userReducer, mapDispatchToProps)(Signin);
+export default reduxForm({ form: 'Signin', validate })(SigninConnectStore);

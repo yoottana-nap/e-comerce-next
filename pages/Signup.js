@@ -1,7 +1,49 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Field, reduxForm, reset } from 'redux-form';
 import MainLayout from '../components/MainLayout/MainLayout';
+import FieldFirstName from '../components/FieldComponents/FieldFirstName';
+import FieldLastName from '../components/FieldComponents/FieldLastName';
+import FieldEmail from '../components/FieldComponents/FieldEmail';
+import FieldConfirmEmail from '../components/FieldComponents/FieldConfirmEmail';
+import FieldPassword from '../components/FieldComponents/FieldPassword';
+import FieldConfirmPassword from '../components/FieldComponents/FieldConfirmPassword';
+import FieldTel from '../components/FieldComponents/FieldTel';
+import ButtonSubmit from '../components/FieldComponents/ButtonSubmit';
+import validate from '../Validate/SignupValidator';
+import { service } from '../api/BaseApi';
+import Router from 'next/router';
+const Signup = (props) => {
+    const dispatch = useDispatch();
+    let { handleSubmit } = props;
+    const singinSubmit = (data) => {
+        if (data) {
+            service({
+                method: 'post',
+                url: 'users/Register/',
+                data: {
+                    first_name: data.firstName,
+                    last_name: data.firstName,
+                    email: data.email,
+                    password: data.password,
+                    telephone: data.tel,
+                    order: []
+                }
+            })
+                .then((response) => {
+                    if (response) {
+                        alert("สมัครสมาชิกเสร็จสิ้น")
+                        Router.push('/signin');
+                    }
+                }).catch(err => {
+                    if (err) {
+                        alert("กรุณาตรวจสอบความถูกต้องอีกครั้ง")
+                    }
+                })
+        }
+        dispatch(reset('Signup'));
+    }
 
-const Signup = () => {
     return (
         <MainLayout>
             <div className="container">
@@ -13,51 +55,100 @@ const Signup = () => {
                         <h5 className="mt-5">
                             สมัครสมาชิก
                         </h5>
-                        <form className="text-left row my-5">
+                        <form onSubmit={handleSubmit(singinSubmit)} className="text-left row my-5">
                             <div className="col-md-6 col-12">
                                 <div className="form-group">
-                                    <label for="firstName">ชื่อจริง</label>
-                                    <input type="text" className="form-control" id="firstName" placeholder="โปรดกรอกชื่อจริง" />
+                                    <label htmlFor="firstName">ชื่อจริง</label>
+                                    <Field
+                                        name="firstName"
+                                        type="text"
+                                        component={FieldFirstName}
+                                        styleTextError="text-danger"
+                                        placeholder="โปรดกรอกชื่อจริง"
+                                    />
                                 </div>
                             </div>
                             <div className="col-md-6 col-12">
                                 <div className="form-group">
-                                    <label for="lastName">นามสกุล</label>
-                                    <input type="text" className="form-control" id="lastName" placeholder="โปรดกรอกนามสกุล" />
+                                    <label htmlFor="lastName">นามสกุล</label>
+                                    <Field
+                                        name="lastName"
+                                        type="text"
+                                        component={FieldLastName}
+                                        styleTextError="text-danger"
+                                        placeholder="โปรดกรอกนามสกุล"
+                                    />
                                 </div>
                             </div>
                             <div className="col-md-6 col-12">
                                 <div className="form-group">
-                                    <label for="email">อีเมลล์</label>
-                                    <input type="email" className="form-control" id="email" placeholder="โปรดกรอกอีเมลล์" />
+                                    <label htmlFor="email">อีเมลล์</label>
+                                    <Field
+                                        name="email"
+                                        type="email"
+                                        component={FieldEmail}
+                                        styleTextError="text-danger"
+                                        placeholder="โปรดกรอกอีเมลล์"
+                                    />
+
                                 </div>
                             </div>
                             <div className="col-md-6 col-12">
                                 <div className="form-group">
-                                    <label for="confirmEmail">ยืนยันอีเมลล์</label>
-                                    <input type="email" className="form-control" id="confirmEmail" placeholder="โปรดกรอกอีเมลล์อีกครั้ง" />
+                                    <label htmlFor="confirmEmail">ยืนยันอีเมลล์</label>
+                                    <Field
+                                        name="ConfirmEmail"
+                                        type="email"
+                                        component={FieldConfirmEmail}
+                                        styleTextError="text-danger"
+                                        placeholder="โปรดกรอกอีเมลล์อีกครั้ง"
+                                    />
                                 </div>
                             </div>
                             <div className="col-md-6 col-12">
                                 <div className="form-group">
-                                    <label for="Password">รหัสผ่าน</label>
-                                    <input type="password" className="form-control" id="Password" placeholder="โปรดกรอกรหัสผ่าน" />
+                                    <label htmlFor="password">รหัสผ่าน</label>
+                                    <Field
+                                        name="password"
+                                        type="password"
+                                        component={FieldPassword}
+                                        styleTextError="text-danger"
+                                        placeholder="โปรดกรอกรหัสผ่าน"
+                                    />
                                 </div>
                             </div>
                             <div className="col-md-6 col-12">
                                 <div className="form-group">
-                                    <label for="confirmPassword">ยืนยันรหัสผ่าน</label>
-                                    <input type="password" className="form-control" id="confirmPassword" placeholder="โปรดกรอกรหัสผ่านอีกครั้ง" />
+                                    <label htmlFor="confirmPassword">ยืนยันรหัสผ่าน</label>
+                                    <Field
+                                        name="confirmPassword"
+                                        type="password"
+                                        component={FieldConfirmPassword}
+                                        styleTextError="text-danger"
+                                        placeholder="โปรดกรอกรหัสผ่านอีกครั้ง"
+                                    />
                                 </div>
                             </div>
                             <div className="col-12">
                                 <div className="form-group">
-                                    <label for="tel">หมายเลขโทรศัพท์</label>
-                                    <input type="tel" className="form-control" id="tel" placeholder="โปรดกรอกหมายเลขโทรศัพท์" />
+                                    <label htmlFor="tel">หมายเลขโทรศัพท์</label>
+                                    <Field
+                                        name="tel"
+                                        type="tel"
+                                        component={FieldTel}
+                                        styleTextError="text-danger"
+                                        placeholder="โปรดกรอกหมายเลขโทรศัพท์"
+                                    />
                                 </div>
                             </div>
                             <div className="col-12 text-right">
-                                <button type="submit" className="btn btn-primary w-25">สมัครสมาชิก</button>
+                                <Field
+                                    label="สมัครสมาชิก"
+                                    name="submit"
+                                    type="submit"
+                                    style="btn btn-primary btn-block"
+                                    component={ButtonSubmit}
+                                />
                             </div>
                         </form>
                     </div>
@@ -67,4 +158,4 @@ const Signup = () => {
     )
 }
 
-export default Signup;
+export default reduxForm({ form: 'Signup', validate })(Signup);

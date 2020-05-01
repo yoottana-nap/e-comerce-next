@@ -1,4 +1,5 @@
 import React from 'react';
+import fetch from 'isomorphic-fetch'
 import Banner from '../components/Banner/Banner';
 import MainLayout from '../components/MainLayout/MainLayout';
 import Card from '../components/CardProduct/Card';
@@ -57,12 +58,10 @@ const Index = (props) => {
                     customButtonGroup={<CustomeButtonGroup />}
                 >
                     {
-                        props.dataJson.map((data) => {
-                            return data.items.map((item, index) => {
+                        props.dataJson.map((data,index) => {
                                 return (
-                                    <Card key={index} id_product={item.id} product_type={data.type} images_product={item.images} price_product={item.price} product_name={item.name} />
+                                    <Card key={index} id_product={data._id} product_type={data.type} images_product={data.images} price_product={data.price} product_name={data.name} />
                                 )
-                            })
                         })
                     }
                 </Carousel>
@@ -75,8 +74,10 @@ const Index = (props) => {
 }
 
 Index.getInitialProps = async () => {
-    const api = await import('../mockup/mockup.json')
-    return { dataJson: api.data }
+    let url_dev = "http://localhost:5000/routes/api/products"
+    const api = await fetch(url_dev)
+    const json = await api.json();
+    return { dataJson: json }
 }
 
 export default Index;

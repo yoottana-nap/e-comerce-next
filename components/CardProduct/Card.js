@@ -4,9 +4,9 @@ import '../CardProduct/Card.scss';
 
 const Card = (props) => {
     const { product_name, price_product, images_product, id_product, product_type } = props;
-    let cost = 9200, name = "PURE BLUE JAPAN XX-005 – INDIGO", image_test = "https://www.navycapthai.com/wp-content/uploads/2016/11/%E0%B8%81%E0%B8%B2%E0%B8%87%E0%B9%80%E0%B8%81%E0%B8%87%E0%B8%A7%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%A1%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%99%E0%B8%B2%E0%B8%A7%E0%B8%B5.jpg";
+    let cost = 9200, name = "PURE BLUE JAPAN XX-005 – INDIGO", image_test = "a";
     const imageList = {
-        "imageFirst": images_product !== undefined ? images_product[0] : image_test,
+        "imageProps": images_product !== undefined ? images_product[0] : image_test,
     }
 
     return (
@@ -26,7 +26,7 @@ const Card = (props) => {
                     bottom: 0;
                     right: 0;
                     text-align: center;
-                    background-image:  url(${imageList.imageFirst});
+                    background-image:  url(${imageList.imageProps});
                     background-size:cover;
                     background-repeat:no-repeat;
                     cursor:pointer;

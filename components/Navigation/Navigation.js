@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Link from 'next/link';
+import Cookies from 'js-cookie';
 import './navStyles.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
@@ -8,9 +9,11 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 const Navigation = (props) => {
 
     const [isToggleNav, setToggleNav] = useState(false);
-
-    const { data, addedItems } = props;
-
+    const { data, userReducer, cartreducer } = props;
+    const destroyCookie = () => {
+        Cookies.remove('verify_secure');
+        window.location = "/signin";
+    }
     return (
         <div className={isToggleNav ? 'nav-box' : 'nav-box-hidden'}>
             <div className="hamburgur-container" onClick={() => { setToggleNav(!isToggleNav) }}>
@@ -40,18 +43,30 @@ const Navigation = (props) => {
                                             <React.Fragment>
                                                 <Link href={route.routePath}>
                                                     {route.keyTitle}
-                                                </Link>{`(${addedItems.length ? addedItems.length : '0'})`}
-                                            </React.Fragment>
-                                            : route.keyTitle === "order" ?
-                                                <React.Fragment>
-                                                    <Link href={route.routePath}>
-                                                        {route.keyTitle}
-                                                    </Link>{`(0)`}
-                                                </React.Fragment>
-
-                                                : <Link href={route.routePath}>
-                                                    {route.keyTitle}
                                                 </Link>
+                                                {`(${cartreducer.addedItems.length ? cartreducer.addedItems.length : '0'})`}
+                                            </React.Fragment>
+                                            : route.keyTitle === "signup" ?
+                                                <Link href={userReducer.userData.first_name ? '' : route.routePath}>
+                                                    {userReducer.userData.first_name !== undefined ?
+                                                        `สวัสดี ${userReducer.userData.first_name}` : `${route.keyTitle}`
+                                                    }
+                                                </Link>
+                                                : route.keyTitle === "signin" ?
+                                                    <Link href={userReducer.userData.first_name ? '' : route.routePath}>
+                                                        {userReducer.userData.first_name !== undefined ?
+                                                            <span onClick={() => destroyCookie()}>ออกจากระบบ</span> : `${route.keyTitle}`
+                                                        }
+                                                    </Link> :
+                                                    route.keyTitle === "order" ?
+                                                        <React.Fragment>
+                                                            <Link href={route.routePath}>
+                                                                {route.keyTitle}
+                                                            </Link>
+                                                        </React.Fragment>
+                                                        : <Link href={route.routePath}>
+                                                            {route.keyTitle}
+                                                        </Link>
                                     }
                                 </li>
                             )
@@ -63,4 +78,4 @@ const Navigation = (props) => {
     )
 }
 
-export default connect(state => state.cartreducer)(Navigation);
+export default connect(state => state)(Navigation);

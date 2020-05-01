@@ -1,34 +1,32 @@
 import React, { useEffect } from 'react';
+import fetch from 'isomorphic-fetch';
 import MainLayout from '../components/MainLayout/MainLayout';
 import ShowDetail from '../components/ProductDetailComponent/ShowDetail';
 import { mapDispatchToProps } from '../components/ProductDetailComponent/AddToCartContainer';
 import { connect } from 'react-redux';
 const ProductDetail = (props) => {
+    let { resData, resId, fetchingApi,itemFetch } = props;
     let listItem = [];
-    let { resId, resType, resData,fetchingApi } = props;
     useEffect(() => {
         resData.forEach(dataArr => {
-           return dataArr.items.forEach(item => {
-               listItem.push(item)
-               fetchingApi(listItem);
-            })
+            listItem.push(dataArr)
+            fetchingApi(listItem);
         });
-    },[]);
+    }, []);
     return (
         <MainLayout>
-            {resData.map(data => {
-                return data.type === resType && data.items.map((item, index) => {
-                    return parseInt(resId) === item.id && <ShowDetail resType={resType} key={index} item={item} />
-                })
+            {resData.map((data, inex) => {
+                return resId === data._id && <ShowDetail resType={data.type} key={inex} item={data} />
             })}
         </MainLayout>
     )
 }
 
 ProductDetail.getInitialProps = async ({ query }) => {
-    const api = await import('../mockup/mockup.json')
-    const res = await api.data;
-    return { resData: res, resId: query.id, resType: query.type }
+    let url_dev = "http://localhost:5000/routes/api/products"
+    const api = await fetch(url_dev)
+    const json = await api.json();
+    return { resData: json, resId: query.id }
 }
 
 export default connect(state => state.cartreducer, mapDispatchToProps)(ProductDetail);

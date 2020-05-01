@@ -9,7 +9,7 @@ const AddToCart = (props) => {
     const [size, setSize] = useState(32);
 
     const addItemToCart = (items) => {
-        addItemsInCart({ items, qty: quantity, size: size });
+        addItemsInCart({ items, quantity, size: size });
         addTotalPrice(parseInt(quantity * items.price));
         Router.push('/cart')
     }
@@ -83,23 +83,6 @@ const AddToCart = (props) => {
                 text-align: center;
                 color: #707070;
             }
-            
-            .add-cart {
-                width: 263px;
-                height: 55px;
-                border: solid 1px #707070;
-                background-color: #000000;
-                font-family: Kanit;
-                font-size: 30px;
-                font-weight: normal;
-                font-stretch: normal;
-                font-style: normal;
-                line-height: 1.5;
-                letter-spacing: normal;
-                text-align: center;
-                color: #ffffff;
-                outline: none;
-            }
                         
             @media only screen and (max-width: 991.98px) {
 
@@ -163,7 +146,7 @@ const AddToCart = (props) => {
                 </div>
                 <div className="my-3 col-12 text-left">
                     <div className="d-flex flex-row">
-                        <button className="add-cart" onClick={() => { addItemToCart(item) }}>
+                        <button className="btn-black p-2" onClick={() => { addItemToCart(item) }}>
                             ADD TO CART
                         </button>
                     </div>

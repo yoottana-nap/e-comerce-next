@@ -75,45 +75,37 @@ const Cart = (props) => {
                                 CART
                             </h5>
                             <div className="row">
-                                {
-                                    addedItems.length > 0 ?
-                                        addedItems.map(item => {
-                                            return (
-                                                <div className="col-12 my-2">
-                                                    <div className="container underline pb-3">
-                                                        <div className="row">
-                                                            <div className="col-md-3 col-12">
-                                                                <div className="w-100">
-                                                                    <img className="w-100" src={item.images[0]} alt={item.images[0]} />
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-5 col-12 text-left text-muted">
-                                                                <h3 className="type-product">{item.type}</h3>
-                                                                <p>{item.name}</p>
-                                                                {item.Size && item.type !== "Bags" &&
-                                                                    <p><b>SIZE: {item.Size}</b></p>
-                                                                }
-                                                                <p><b>Quantity: {item.quantity}</b></p>
-                                                                <button className="text-left remove-product" onClick={() => handleDeleteItem(item)}>
-                                                                    <u>
-                                                                        ลบ
-                                                                    </u>
-                                                                </button>
-                                                            </div>
-                                                            <div className="col-md-4 col-12">
-                                                                <h5 className="price-product"><b>{parseInt(item.price).toLocaleString()} BATH</b></h5>
-                                                            </div>
+                                {addedItems.map((item, index) => {
+                                    return (
+                                        <div key={index} className="col-12 my-2">
+                                            <div className="container underline pb-3">
+                                                <div className="row">
+                                                    <div className="col-md-3 col-12">
+                                                        <div className="w-100">
+                                                            <img className="w-100" src={item.images[0]} alt={item.images[0]} />
                                                         </div>
                                                     </div>
+                                                    <div className="col-md-5 col-12 text-left text-muted">
+                                                        <h3 className="type-product">{item.type}</h3>
+                                                        <p>{item.name}</p>
+                                                        {item.Size && item.type !== "Bags" &&
+                                                            <p><b>SIZE: {item.Size}</b></p>
+                                                        }
+                                                        <p><b>Quantity: {item.quantity}</b></p>
+                                                        <button className="text-left remove-product" onClick={() => handleDeleteItem(item)}>
+                                                            <u>
+                                                                ลบ
+                                                                    </u>
+                                                        </button>
+                                                    </div>
+                                                    <div className="col-md-4 col-12">
+                                                        <h5 className="price-product"><b>{parseInt(item.price).toLocaleString()} BATH</b></h5>
+                                                    </div>
                                                 </div>
-
-                                            )
-                                        })
-                                        :
-                                        (
-                                            ''
-                                        )
-                                }
+                                            </div>
+                                        </div>
+                                    )
+                                })}
                             </div>
                         </div>
                     </div>

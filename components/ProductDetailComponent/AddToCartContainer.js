@@ -21,16 +21,16 @@ export const Cartreducer = (state = initialState, action) => {
         }
     }
     else if (action.type === CartAction.ADDED_CART) {
-        let addedItem = state.itemFetch.find(item => item.id === action.payload.items.id)
-        let existed_item = state.addedItems.find(item => action.payload.items.id === item.id)
+        let addedItem = state.itemFetch.find(item => item._id === action.payload.items._id)
+        let existed_item = state.addedItems.find(item => action.payload.items._id === item._id)
         if (existed_item) {
-            addedItem.quantity += action.payload.qty;
+            existed_item.quantity += action.payload.quantity;
             if (addedItem.type !== "Bags") {
                 addedItem.Size = action.payload.size;
             }
         }
         else {
-            addedItem.quantity = action.payload.qty;
+            addedItem.quantity = action.payload.quantity;
             if (addedItem.type !== "Bags") {
                 addedItem.Size = action.payload.size;
             }
@@ -40,10 +40,9 @@ export const Cartreducer = (state = initialState, action) => {
                 addedItems: [...state.addedItems, addedItem],
             }
         }
-
     } else if (action.type === CartAction.CART_REMOVE) {
         // filter new items obj delete item = action.id 
-        let new_items = state.addedItems.filter(item => action.payload.items.id !== item.id)
+        let new_items = state.addedItems.filter(item => action.payload.items._id !== item._id)
         return {
             ...state,
             addedItems: new_items,
